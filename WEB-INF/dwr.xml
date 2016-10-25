@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr/dwr30.dtd">
+<dwr>
+	<allow>
+		<!--dwr3提供的一个日志审核过滤器 -->
+		<!--<filter class="org.directwebremoting.filter.AuditLogAjaxFilter"/> -->
+		<create creator="spring" javascript="securityPush">
+			<param name="beanName" value="securityPush" />
+			<include method="onSecurityRemote" />
+		</create>
+		<!--  <create creator="new" javascript="securityPush" scope="application">
+			<param name="class" value="com.ivargo.cloud.filter.SecurityPush" />
+		</create>-->
+	</allow>
+</dwr>  

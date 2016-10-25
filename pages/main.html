@@ -1,0 +1,173 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>VARGO Cloud</title>
+	<!-- 公共文件必须在单独文件之上，不然会报webpackJson错 -->
+	<script src="../script/common.js"></script>
+	<script src="../script/main.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../styles/common.css">
+</head>
+<body>
+    <header class="header" style="">
+    	<div class="container-fluid">
+		    <div class="logo">
+		    	 <a class="logo-transparent" href="#" ><!-- <img src="../image/top_logo.png"> --></a>
+		    </div>
+		    <div class="loginInfo">
+			    <a href="javascript:void(0)" class="noticeMesaage"  id="noticeMessage">
+			    	<div class="noticeIcon"></div>
+				   	 消息12
+				  	<i></i>
+				  <ul id="messageList" class="messageList" class="messageList"  style="display:none">
+				  </ul>
+			    </a>
+		    	<ul class="userInfoList">
+		    		<li>
+		    			<img src="../image/pic09.jpg" alt="" />
+		    		</li>
+		    		<li id="userInfo"></li>
+		    	</ul>
+		    </div>   	    
+		</div>
+    </header>
+    <div class="main" id="wholeBody">
+    	 <div class="container-fluid">
+			  <div class="row" id="mainBody">
+				  <div class="col-xs-1 col"><img src="../image/pic_img01.png"><p>通讯录</p><em>Address Book</em></div>
+				  <div class="col-xs-1 col"><img src="../image/pic_img02.png"><p>短信</p><em>Message</em></div>
+				  <div class="col-xs-1 col"><img src="../image/pic_img03.png"><p>通话记录</p><em>Call History</em></div>
+				  <div class="col-xs-1 col"><img src="../image/pic_img04.png"><p>相册</p><em>Album</em></div>
+				  <div class="col-xs-1 col"><img src="../image/pic_img05.png"><p>时间管理</p><em>Vtime</em></div>
+				  <div class="col-xs-1 col"><img src="../image/pic_img06.png"><p>浏览器书签</p><em>Browser</em></div>
+				  <div class="col-xs-1 col"><img src="../image/pic_img07.png"><p>vargo安全</p><em>Safe</em></div>
+			  </div>
+	     </div>
+    </div>
+	
+
+</body>
+</html>
+<script>
+	function parseUA() {
+            var u = navigator.userAgent;
+            var u2 = navigator.userAgent.toLowerCase();
+            return { //移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                iosv: u.substr(u.indexOf('iPhone OS') + 9, 3),
+                weixin: u2.match(/MicroMessenger/i) == "micromessenger",
+                ali: u.indexOf('AliApp') > -1,
+            };
+        }
+        var ua = parseUA();
+
+        //localstorage设置过期时间方法封装
+        var storage = (function(win){
+        	var StorageKeys = {};
+        	function isExpires(key,expires){
+        		var now = +new Date();//或new Date.getTime();
+        		if(!expires){return false;}
+        		if(now > parseInt(expires,10)){
+        			return true;
+        		}
+        		return false;
+        	};
+
+        	function setItem(key, value, expires){
+        		if(!key) return this;
+        		expires = expires || 0;
+        		this._key = key;
+        		var now = +new Date();
+        		var localkey = "localstorage___"+key+"___"+(expires?expires*1000+now:'');
+        		window.localStorage.setItem(localkey,value);
+        		StorageKeys[key] = {"key":localkey,"expires":expires?expires*1000+now:""};
+        		return this;
+        	};
+        	
+        	function getItem(key){
+        		var item = StorageKeys[key];
+        		if(item){
+        			if(isExpires(key,item['expires'])){ return ""; }
+            		return win.localStorage[item['key']];
+        		}
+        		return "";
+        	};
+        	function expires (seconds){
+		        if(!seconds){ return this; }
+		        
+		        var key = this._key,
+		            item = StorageKeys[key] || {},
+		            value = win.localStorage[item['key']],
+		            now = (+new Date());
+		        
+		        if(!key){ return this; }
+		        
+		        this.removeItem(key);
+		        this.setItem(key,value,seconds);
+		        
+		        return this;
+		    };
+		    function removeItem (key){
+		        var item = StorageKeys[key];
+		        if(item){
+		            win.localStorage.removeItem(item['key']);
+		        }
+		        return this;
+		    }
+        	return {
+        		getItem: getItem,
+        		setItem: setItem,
+        		expires: expires,
+        		removeItem: removeItem
+        	}
+
+
+        })(window);
+        //storage.setItem("test","hello world").expires(3);
+      	/*storage.removeItem("test");*/
+	function addCookie(name,value,expiresHours){ 
+			var cookieString=name+"="+escape(value); 
+			//判断是否设置过期时间,0代表关闭浏览器时失效
+		
+			    var date=new Date(); 
+			    date.setTime(date.getTime()+expiresHours*1000); 
+			    cookieString=cookieString; 
+			
+			    document.cookie=cookieString
+		} 
+
+		//根据名字获取cookie的值
+		function getCookieValue(name){ 
+		  var strCookie=document.cookie; 
+		  var arrCookie=strCookie.split("; "); 
+		  for(var i=0;i<arrCookie.length;i++){ 
+		    var arr=arrCookie[i].split("="); 
+		    if(arr[0]==name){
+		      return unescape(arr[1]);
+		      break;
+		    }else{
+		         return ""; 
+		         break;
+		     } 
+		  }    
+		}
+		addCookie("tcst","helloworld",'60');
+       console.log(getCookieValue('tcst'),'12323')
+       //console.log(getCookieValue('tcst'),'1111')
+
+
+      
+</script>

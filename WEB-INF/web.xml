@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" 
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+id="WebApp_ID" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+  <filter>  
+        <filter-name>characterEncodingFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+        <init-param>
+            <param-name>encoding</param-name>  
+            <param-value>UTF-8</param-value>  
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>  
+            <param-value>true</param-value>  
+        </init-param>
+    </filter>  
+    <filter-mapping>  
+        <filter-name>characterEncodingFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>
+    <!--　浏览器不支持put,delete等method,由该filter将/xxxx?_method=delete转换为标准的http　delete方法　-->
+    <filter>  
+        <filter-name>HiddenHttpMethodFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>HiddenHttpMethodFilter</filter-name>  
+        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>  
+    </filter-mapping>     
+    <listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+    </listener>  
+	
+
+    <servlet>  
+        <servlet-name>springmvc</servlet-name>  
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+        <init-param>  
+            <param-name>contextConfigLocation</param-name>  
+            <param-value>classpath*:/applicationContext_mvc*.xml</param-value>  
+        </init-param>  
+        <load-on-startup>1</load-on-startup>  
+    </servlet>  
+    <servlet-mapping>  
+        <servlet-name>springmvc</servlet-name>  
+        <!--  <url-pattern>*.do</url-pattern>--><!-- 过滤所有路径(spring 3.0 REST 风格支持) -->  
+        <url-pattern>/</url-pattern><!-- 过滤所有路径(spring 3.0 REST 风格支持) -->
+    </servlet-mapping>  
+    
+    <context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>classpath*:/applicationContext*.xml</param-value>  
+    </context-param>
+    
+    <!-- dwr框架 页面推送支持 -->
+    <servlet-mapping>
+    	<servlet-name>dwr-push</servlet-name>
+    	<url-pattern>/push/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>dwr-push</servlet-name>
+    	<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+    	<init-param>
+    		<param-name>contextConfigLocation</param-name>
+    		<param-value>/WEB-INF/dwr.xml</param-value>
+    	</init-param>
+    	<!-- 测试环境下,需要开启debug模式,线上环境需要关闭 -->
+    	<init-param>
+    		<param-name>debug</param-name>
+    		<param-value>true</param-value>
+    	</init-param>
+    	<!-- 是否允许跨域 -->
+    	<init-param>
+    		<param-name>crossDomainSessionSecurity</param-name>
+    		<param-value>false</param-value>
+    	</init-param>
+    	<!-- 脚本压缩 -->
+    	<init-param>
+    		<param-name>scriptCompressed</param-name>
+    		<param-value>false</param-value>
+    	</init-param>
+    	<!-- 允许脚本标签远程 -->
+    	<init-param>
+    		<param-name>allowScriptTagRemoting</param-name>
+    		<param-value>true</param-value>
+    	</init-param>
+    	<!-- comet方式 -->
+    	<init-param> 
+    		<param-name>activeReverseAjaxEnabled</param-name>
+    		<param-value>true</param-value>
+    	</init-param>
+    	<!-- polling方式:在comet方式的基础上,再配以下参数 -->
+    	<!--  <init-param>
+    		<param-name>org.directwebremoting.extend.ServerLoadMonitor</param-name>    		
+    		<param-value>org.directwebremoting.impl.PollingServerLoadMonitor</param-value>
+    	</init-param>-->
+    	<!-- comet 和 poll 方式 -->
+    	<init-param>
+    		<param-name>pollAndCometEnabled</param-name>
+    		<param-value>true</param-value>
+    	</init-param>
+    	<!-- 毫秒数。页面默认的请求间隔时间是5秒 -->
+    	<init-param>
+    		<param-name>disconnectedTime</param-name>
+    		<param-value>5000</param-value>
+    	</init-param>
+    	  
+    </servlet>
+    <!-- 
+    <listener>
+    	<listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextListener</listener-class>
+    </listener>
+	<listener>  
+		<listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextAttributeListener</listener-class>  
+	</listener>   -->
+	 <!-- 如果你想在你的service中使用request 请在web.xml文件中加入  Spring中添加 request -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+    <!--start 静态资源不进行过滤 (REST 风格过滤了所有路径,所以需要把静态资源做为不进行过滤配置)-->     
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.eot</url-pattern>  
+     </servlet-mapping>    
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.woff</url-pattern>  
+     </servlet-mapping>    
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.ttf</url-pattern>  
+     </servlet-mapping>       
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.svg</url-pattern>  
+     </servlet-mapping>          
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.m4a</url-pattern>  
+     </servlet-mapping>      
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.mp3</url-pattern>  
+     </servlet-mapping>    
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.html</url-pattern>  
+     </servlet-mapping>
+    <servlet-mapping>
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.css</url-pattern>  
+     </servlet-mapping>  
+      <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.gif</url-pattern>  
+     </servlet-mapping>  
+       
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>  
+    <servlet-mapping>
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.png</url-pattern>  
+    </servlet-mapping>
+    <servlet-mapping>
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.ico</url-pattern>  
+    </servlet-mapping>
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.less</url-pattern>  
+    </servlet-mapping>
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>  
+         <servlet-name>default</servlet-name>
+         <url-pattern>*.dwr</url-pattern>
+    </servlet-mapping>
+    <!--end 静态资源不进行过滤 -->
+	<welcome-file-list>
+	  <welcome-file>pages/account/login.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+    	<error-code>500</error-code>
+    	<location>/error500.jsp</location>
+	</error-page>
+	<error-page>
+         <error-code>404</error-code>
+         <location>/error404.jsp</location>
+    </error-page>    
+</web-app>

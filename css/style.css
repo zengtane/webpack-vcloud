@@ -1,0 +1,154 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*--------begin 登录------*/
+.wrap_content{width:432px;height:352px;left:50%;margin-left:-216px;top:50%;margin-top:-176px; position:absolute; z-index:1;border-radius:6px;-webkit-border-radius:6px;-moz-border-radius:6px;-ms-border-radius:6px;-o-border-radius:6px;}
+.logo{overflow:hidden;width:232px;height:49px;margin:18px 100px 25px 100px; position:relative;opacity:1.0;}
+.logo img{float:left;}
+.userlogin{width:350px;margin:0 40px;border:1px solid #bebebe;border-radius:5px;overflow:hidden;position:relative;z-index:1;background:#fff;opacity:1.0;}
+.userlogin input{width:350px;height:54px;border:none;line-height:inherit;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;outline:none;font-size:18px;padding:0 10px;color:#b2b2b2;overflow:hidden;}
+.userlogin input:nth-of-type(1){border-bottom:1px solid #bebebe;width:350px;}
+.userlogin input:nth-of-type(2){float:left;width:300px;}
+.userlogin button{border:none;background:none;float:right;outline:none;margin-top:13px; cursor:pointer;margin-right:13px;}
+.userlogin img{border:none;width:28px;height:28px;}
+.login_onload{width: 28px;float:right;margin-top:13px;margin-right:13px;display: none;}
+.login_onload span{width:4px;height:28px;background-color:#dd2a50;display: inline-block;
+   -webkit-animation: bouncedelay 2s infinite ease-in-out;
+           animation: bouncedelay 2s infinite ease-in-out;
+   -webkit-animation-fill-mode: both;
+           animation-fill-mode: both;}
+.login_onload .rect1{-webkit-animation-delay:-0.42s;background-color:#44b273;animation-delay:-0.42s;}
+.login_onload .rect2{-webkit-animation-delay:-0.21s;background-color:#19a3ae;animation-delay:-0.21s;}
+@-webkit-keyframes bouncedelay {
+  0%,80%,100%{-webkit-transform:scale(0.0) }
+  40%{-webkit-transform: scale(1.0) }
+}
+ 
+@keyframes bouncedelay {
+  0%,80%,100%{transform:scale(0.0);-webkit-transform:scale(0.0);} 
+  40%{transform:scale(1.0);-webkit-transform:scale(1.0);
+  }
+}
+
+/* input type 为button，去掉button的元素的border */
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+	border:none;
+}
+
+.userVargo{margin:5px 40px 0 40px;overflow:hidden;font-size:13px;}
+.userVargo span{
+	text-align:center;
+	color:#fe100f;
+	font-size:12px;
+	height:20px;
+	line-height:20px;
+	letter-spacing:2px;
+	display:block;
+}
+.userVargo span i{
+	background:#fff;
+	color:#333;
+	width:216px;
+	position:absolute;
+    border-radius:6px;
+    text-align:left;
+    padding:20px;
+    font-size:14px;
+    z-index: 4;
+    left:20%;
+    top:66%;
+    display:none;
+    -webkit-box-shadow:0 0 10px #ccc; 
+    -moz-box-shadow:0 0 10px #ccc;
+    box-shadow:0 0 10px #ccc;
+}
+.userVargo span a{color:#1690d0;border-bottom:none;}
+.userVargo span em{
+	width:14px;
+	height:14px;
+	line-height:14px;
+	text-align:center;
+	display:inline-block;
+	border-radius:50%;
+	background:#1ba1e9;
+	color:#fff;
+	margin-left:5px;
+	cursor:pointer;
+}
+.userVargo a{color:#000;text-decoration:none;border-bottom:1px solid #bdafa8;font-weight:bold;margin-top:10px;}
+.userVargo_left{float:left;}
+.userVargo_right{float:right;}
+.content_up{height:292px;display:block;}
+.wrap_content p{width:352px;height:40px;line-height:30px;border-top:1px solid #b0b0b0; text-align:center;font-size:10px;color:#a6a6a6; position:fixed;margin:0 40px;}
+
+/*--------邮箱设置--------*/
+.email_txt{ text-align:center;font-size:14px;height:20px;color:#000;font-weight:bold;margin-bottom:46px;}
+.email_fw{margin-bottom:16px;}
+
+.useremail{width:350px;margin:0 40px;border:1px solid #bebebe;border-radius:5px;overflow:hidden;position:relative;z-index:11;background:#fff;opacity:1.0;}
+.useremail input{width:300px;height:54px;border:none;line-height:inherit;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;outline:none;font-size:20px;padding:0 10px;color:#b2b2b2;overflow:hidden;float:left;}
+.useremail button{border:none;background:none;float:right;outline:none;margin-top:13px; cursor:pointer;}
+.useremail img{border:none;margin-right:13px;}
+.email_text{margin:10px 40px 0 40px;font-size:12px;width:352px;height:50px;line-height:20px;color:#ff0e0f;font-weight:bold;}
+.email_text_center{text-align:center;}
+.email_user{color:#2c2cff;margin:0 40px;height:30px;display:none;}
+
+/*--------验证发邮件至邮箱-------*/
+.email_send{margin:0 40px;text-align:center;font-size:14px;font-weight:bold;}
+.send_txt a{color:#f9001b;line-height:22px;}
+.email_yz{margin:30px 110px;text-align:center;border-bottom:1px solid #b8acae;padding:5px 0;}
+.email_yz a{color:#1b23f2;text-decoration:none;font-size:17px;font-weight:bold;}
+
+/*---------登录成功--------*/
+.login_chg{width:226px;margin:18px 100px 60px 100px; z-index:9999;opacity:1.0;}
+.login_chg img{width:226px;height:64px;opacity:1.0;}
+.login_chg p{border-top:none;margin-left:-60px;color:#2533ff;font-size:18px;font-weight:bold;}
+.login_enter{margin:0 40px;text-align:center;font-size:14px;color:#a6a6a6;}
+
+/*-----end 登录-----*/
+
+
+/*-----begin 注册-----*/
+.useregister{}
+.useregister input:nth-of-type(2){border-bottom:1px solid #bebebe;width:350px;}
+.useregister input:nth-of-type(3){border-bottom:none;float:left;width:300px;}
+.pwdrule{text-align:center;font-size:12px;line-height:24px;}
+.pwdrule span{color:#f9001b;}
+.pwdrule p{color:#a9a5a6;border-top:none;}
+
+/*----输入密码有误-----*/
+.useregister{}
+.useregister input:nth-of-type(2){border-bottom:1px solid #bebebe;width:350px;}
+.useregister input:nth-of-type(3){border-bottom:none;float:left;width:300px;}
+.pwdrule{text-align:center;font-size:12px;line-height:24px;border-bottom-left-radius:0;border-bottom-right-radius:0;}
+.pwdrule span{color:#f9001b;}
+.pwdrule p{color:#a9a5a6;border-top:none;font-size:12px;}
+
+.useregister_email{width:350px;margin:0 40px;overflow:hidden;position:relative;z-index:11;opacity:1.0;}
+.useregister_email input{width:350px;border:1px solid #bebebe;background:#fff;height:54px;line-height:inherit;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;outline:none;font-size:18px;padding:0 10px;color:#000;overflow:hidden;}
+.useregister_email input:nth-of-type(1){border-top-left-radius:5px;border-top-right-radius:5px;color:#000;}
+.useregister_email span{width:350px;font-size:12px;margin:5px 0;color:#f00;text-align:center;display:block;}
+.useregister_email span a{color:#1b23f2;text-decoration:none;}
+.useregister_email input:nth-of-type(2){border-bottom:none;}
+.useregister_email input:nth-of-type(3){border-bottom-left-radius:5px;border-bottom:1px solid #bebebe;border-right:none;width:300px;float:left;}
+.useregister_email button{background:#fff;float:right;padding:12px 11px 12px 10px;border:1px solid #bebebe;border-left:none;border-bottom-right-radius:5px;outline:none;cursor:pointer;}
+.useregister_email img{border:none;width:28px;height:28px;}
+
+.rulepwd input:nth-of-type(2){border-bottom:1px solid #bebebe;border-top:none;}
+/*------end 注册-------*/
+
+/*----begin 找回密码----*/
+.pwdtxt{text-align:center;font-size:12px;color:#f9001b;margin-top:3px;}
+/*----end 找回密码----*/
+
+
+
+
+
+
+
+
+
+
+
+

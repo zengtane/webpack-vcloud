@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>VARGO Cloud</title>
+	<link rel="stylesheet" type="text/css" href="../../styles/contact.css">
+	<link rel="stylesheet" type="text/css" href="../../styles/common.css">
+
+</head>
+<body style="overflow-y:hidden;">
+		         
+    <header class="header">
+    	<div class="container-fluid">
+		    <div class="logo">
+		    	 <a class="logo-transparent" href="../../account/main"><img src="../../image/top_logo.png"></a>
+		    	 <a class="titleBtn" id="titleBtn" href="#">通讯士饭锅大改录<img src="../../image/top_arrow.png"></a>
+		    	<div class="sub_nav" id="navigationBar">
+		    	</div>
+		    </div>
+		    <div class="loginInfo">
+			    <a href="javascript:void(0)" class="noticeMesaage"  id="noticeMessage">
+			    <div class="noticeIcon"></div>
+				    消息
+				  <i></i>				    
+				  <ul id="messageList" class="messageList" class="messageList"  style="display:none">
+				  </ul>
+			    </a>
+		    	<ul class="userInfoList">
+		    		<li>
+		    			<img src="../../image/pic09.jpg" alt="" />
+		    		</li>
+		    		<li id="userInfo"></li>
+		    	</ul>
+		    </div>  
+		    <div class="infolist" style="display:none;"><!-- 消息提示列表 -->
+		        <ul>
+		            <li><a href="#">手机将保持在锁屏界面无法输入密码。</a></li>
+		            <li><a href="#">手机将保持在锁屏界面无法输入密码。</a></li>
+		            <li><a href="#">手机将保持在锁屏界面无法输入密码。</a></li>
+		        </ul>
+		    </div>
+		</div>
+    </header>
+    <div class="main" id="mainElement">
+        <div class="container-fluid">
+            <div class="row" id="mainBody" >
+                  <div class="col-xs-1 col1" id="subNav" style="background:#f18300"><img src="../../image/pic_img01.png"><p>通讯录</p><em>Address Book</em></div>
+				  <div class="col-xs-6 col6">
+				        <div class="vargo_contacts">
+				             <!-- 联系人列表 -->
+                             <div class="contact_left" id="contact_left">
+                                   <div class="phone_num">
+					                    <input type="image" src="../../image/record_search.png">
+					                    <input type="text" placeholder="搜索联系人" id="search">
+					               </div>
+					               <div class="contacts" id="totalContacts">
+					                    <div>所有联系人<i>(2)</i><b onclick="allpeople();"></b></div>
+					                    <div class="refresh contactBtn" id="refresh">
+					                    </div>					                    
+					                    <div id="importExport" class="importExport contactBtn">
+					                    	<div id="bodyCover" class="files" style="display:none">
+					                    		<button>导入</button>
+					                    		<br>
+					                    		<button>导出</button>
+					                    	</div>
+					                    </div>	
+					                    <div class="add contactBtn"></div>				                    
+					               </div>
+					               <div class="message addresslist" id="mainBox">
+		                                <ul id="content">
+		                               </ul>
+		                               <div class="allselect" id="allSelect" style="display: none;">
+			                               <button type="button" >全选</button>
+			                           </div>
+		                           </div>
+		                           
+                             </div>
+                             <!-- 联系人详情 -->
+                             <div class="contact_right" id="rightElement">
+                                  <div class="emptySelectNode">点击联系人查看详情</div>
+                                  <!-- 选中联系人 -->
+                                  <!-- 选中联系人 -->
+                                  <div class="contact_list" id="contactSelect" style="display: block;">
+				                      <h4>当前选中<i>1</i>个联系人</h4>
+				                      <ul>
+				                          <li id="752690314409676800">
+				                               <img src="../../image/head_pic.jpg">
+				                               <em></em>
+				                               <p>大大大</p>
+				                          </li>
+				                          <li id="752690314409676800">
+				                               <img src="../../image/head_pic.jpg">
+				                               <em></em>
+				                               <p>大大大</p>
+				                          </li>
+				                      </ul>
+				                  </div>
+				                  <!-- 新建联系人 -->                                 
+				                  <div></div>
+				                  <div class="btn_txt" style="display: block;">
+				                      <button id="unAllSelect">取消</button>
+				                      <button><img src="../../image/message_delete.png"></button>
+				                      <button id="contactDeletes">群组</button>
+				                  </div>
+                             </div>
+                        </div>
+				  </div>
+				  <!-- 弹出层 -->
+                  <div class="popups_bg" style="display:none;"></div>
+                  <div class="popups_nr" style="display:none;">
+	                  <div class="locking">
+	                      
+	                  </div>
+	              </div>
+	              <div class="loading" style="display:none;">
+	                  <div class="line-spin-fade-loader">
+					     <div></div>
+					     <div></div>
+					     <div></div>
+					     <div></div>
+					     <div></div>
+					     <div></div>
+					     <div></div>
+					     <div></div>
+					  </div>
+	              </div>
+            </div> 
+        </div>
+    </div>
+    <div class="winPop creat_group" id="creat_group">
+    	<h3>新建群主</h3>
+    	<input type="text" placeholder="请输入群组名称，不能多于20个字符" maxlength="20">
+    	<span class="err-tip"></span>
+    	<button>新建</button>
+    	<button>取消</button>
+    </div>
+    <!-- 新建群主弹出 -->
+    <div class="mask" style='display:none'></div>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/contact.js"></script>
+
+    
+    <!-- 按照循序加载 1.jquery库 2.dwr推送库 3.vcloud自定义js库-->
+    <!-- start jquery -->
+
+	<!-- end  vcloud libirary-->
+<!-- 	start ajax文件操作
+<script type="text/javascript" src="../../js/ajaxfileupload.js"></script>
+end ajax文件操作 -->
+<script>//个人账户中选项卡切换
+
+</script>
+</body>
+</html>

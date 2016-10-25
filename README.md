@@ -1,0 +1,3 @@
+npm install
+webpack
+编辑过程中可以使用webpack--watch来监听文件改动
