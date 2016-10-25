@@ -1,3 +1,5 @@
 npm install
 webpack
-编辑过程中可以使用webpack--watch来监听文件改动
+
+webpack--watch来监听文件改动
+webpack-dev-server启动webpack服务
