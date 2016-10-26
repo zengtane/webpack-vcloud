@@ -5,7 +5,8 @@
   "author": "zeng",
   "license": "ISC",
   "scripts": {
-    "start": "webpack"
+    "start": "webpack",
+    "build": "rm -rf public/* && webpack --progress --hide-modules"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.1",
@@ -15,6 +16,8 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "glob": "^7.0.0",
+    "html-loader": "^0.4.4",
+    "html-webpack-plugin": "^2.24.0",
     "jquery": "^1.12.0",
     "postcss-loader": "^1.0.0",
     "style-loader": "^0.13.0",

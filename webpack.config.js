@@ -12,7 +12,8 @@ var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 //自动补全css3前缀
 var Autoprefixer = require('autoprefixer');
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+const debug = process.env.NODE_EVN !== "production"
 //构建之后为public目录
 var chunks = Object.keys(getEntry());
 module.exports = {
@@ -32,12 +33,20 @@ module.exports = {
         loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!less-loader")
       },*/
   		{   //字体文件必要loader
-  			test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+  			test: /\.(woff|woff2|ttf|eot|svg)$/,
   			loader: 'file-loader?name=styles/[name].[ext]'
-  		}, {
-        test: /\.(png|jpe?g|gif)$/,//只对background-image设置的图片
-        loader: 'url-loader?limit=10000'
-      }
+  		},
+      {
+          //html模板加载器，可以处理引用的静态资源，默认配置参数attrs=img:src，处理图片的src引用的资源
+          //比如你配置，attrs=img:src img:data-src就可以一并处理data-src引用的资源了，就像下面这样
+          test: /\.html$/,
+          loader: "html?attrs=img:src img:data-src"
+      }, 
+       {
+        test: /\.(png|jpg|gif)$/,//只对background-image设置的图片
+        loader: 'url-loader?name=image/[name].[ext]'
+      },
+      
   	]
   },
   plugins: [
@@ -52,29 +61,42 @@ module.exports = {
     $: path.join(__dirname, "./js/jquery-1.11.2.min.js"),
     "window.jQuery": path.join(__dirname, "./js/jquery-1.11.2.min.js")
    }),  
-	 /*new CleanPlugin (['./public']),*/
+	 new CleanPlugin (['./public']),
   new CommonsChunkPlugin({
     name: 'common', //公共模块提取生成名为common.js文件
     chunks: chunks,
     minChunks : chunks.length //提取所有entry共同依赖的模块
   }) ,
-  new CopyWebpackPlugin([
+  //HtmlWebpackPlugin，模板生成相关的配置，每个对于一个页面的配置，有几个写几个
+    new HtmlWebpackPlugin({ //根据模板插入css/js等生成最终HTML
+      favicon: './image/favicon.ico', //favicon路径，通过webpack引入同时可以生成hash值
+      filename: './pages/main.html', //生成的html存放路径，相对于path
+      template: './pages/main.html', //html模板路径
+      inject: 'body', //js插入的位置，true/'head'/'body'/false
+      
+    }),
+    new HtmlWebpackPlugin({ //根据模板插入css/js等生成最终HTML
+      favicon: './image/favicon.ico', //favicon路径，通过webpack引入同时可以生成hash值
+      filename: './pages/contacts/contact_query.html', //生成的html存放路径，相对于path
+      template: './pages/contacts/contact_query.html', //html模板路径
+      inject: true, //js插入的位置，true/'head'/'body'/false
+      
+    }),
+   
+ /* new CopyWebpackPlugin([
     {
       from:__dirname+ '/pages',
       to: __dirname+ '/public/pages'
-    },
-    {
-      from:__dirname+ '/image',
-      to: __dirname+ '/public/image'
-    }
-  ]),
+    }/*,
+  
+  ]),*/
 
-   /* new UglifyJsPlugin({ //debug模式即本地调试不压缩，线上压缩代码
+   new UglifyJsPlugin({ //压缩代码
       compress: {
         warnings: false
       },
       except: ['$super', '$', 'exports', 'require'] //排除关键字
-    })*/
+    }),
   ],
   resolve: {
     alias: {jquery: path.join(__dirname,"./js/jquery-1.11.2.min.js")},//注意这里的路径是调用jquery时候的路径，
@@ -91,7 +113,8 @@ module.exports = {
     contentBase: "./public",//本地服务器所加载的页面在的目录
     colors: true,  //终端输出结果为彩色
     inline: true,  //实时刷新
-    port: 8000
+    port: 8000,
+    hot: true
   }
 }
 
